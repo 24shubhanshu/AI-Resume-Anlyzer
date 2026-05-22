@@ -45,7 +45,11 @@ async function registerUserController(req,res)
        process.env.secret,
         {expiresIn:"1d"}
     )
-    res.cookie("token",token);
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+});
     res.status(201).json({
         message:"Account created Successfully",
         user:{
@@ -90,7 +94,11 @@ async function loginUserController(req,res)
     process.env.secret,
     {expiresIn:"1d"}
   )
-    res.cookie("token",token);
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+});
 
     res.status(200).json({
     message:"login succesfully",
@@ -115,7 +123,11 @@ if(token)
 {
     await blackListModel.create({token});
 }
-res.clearCookie("token");
+res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
 res.status(200).json({
     message: "user logged out successfully"
 })
