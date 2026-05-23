@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth';
 
 const register = () => {
@@ -8,12 +8,13 @@ const register = () => {
 const [userName , setUserName] = useState();
 const[email,setEmail]= useState();
 const[password,setPassword]=useState();
-
+const navigate = useNavigate();
+  
   const  handleSubmit=async (e)=>
 {
   e.preventDefault();
   await handleRegister({userName,email,password});
-  Navigate("/");
+  navigate("/");
 }
 if(loading)
 {
